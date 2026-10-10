@@ -3,71 +3,120 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy Policy</title>
-  <meta name="description" content="Privacy Policy for Clip Uploader.">
+  <title>Privacy Policy – Clip Uploader</title>
+  <meta name="description" content="How Clip Uploader accesses, uses, stores and deletes data from YouTube (Google) and TikTok.">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-  <header>
-    <div class="logo">CU</div>
-    <a href="./">Clip Uploader</a>
-    <nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
-  </header>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo.svg" alt="">Clip Uploader</a>
+    <nav class="nav"><a href="./">Home</a><a href="terms.html">Terms</a><a href="data-deletion.html">Data deletion</a></nav>
+  </div>
+</header>
 
+<main class="doc">
   <h1>Privacy Policy</h1>
-  <p class="muted">Last updated: October 10, 2026</p>
+  <p class="updated">Effective date: October 10, 2026 · Last updated: October 10, 2026</p>
 
-  <p>Clip Uploader ("the app") is a personal tool used only by its owner to publish the owner's own
-  videos to the owner's own YouTube and TikTok accounts. This policy explains what data the app
-  handles.</p>
+  <div class="summary">
+    <strong>In short:</strong> Clip Uploader is a desktop application that publishes videos you choose to
+    your own YouTube and TikTok accounts. It requests only the permissions needed to publish, keeps sign-in
+    tokens on your computer, has no servers or database, and never sells or shares your data.
+  </div>
 
-  <h2>Data the app accesses</h2>
+  <h2>1. Who we are</h2>
+  <p>Clip Uploader ("the app", "we") is operated by its developer, reachable at
+    <a href="mailto:ala144hrz@gmail.com">ala144hrz@gmail.com</a>. This policy applies to the desktop
+    application and to this website.</p>
+
+  <h2>2. YouTube API Services</h2>
+  <p>Clip Uploader uses <strong>YouTube API Services</strong> to upload videos to the YouTube channel you
+    connect. By using Clip Uploader you agree to be bound by the
+    <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's handling of your
+    information is described in the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+
+  <h2>3. Information we access</h2>
+  <table>
+    <tr><th>Source</th><th>What is accessed</th><th>Why</th></tr>
+    <tr><td>Google / YouTube</td>
+      <td>Permission to upload videos to your channel (<code>https://www.googleapis.com/auth/youtube.upload</code>).
+        The app does not read your channel's videos, comments, subscriptions, watch history, email or contacts.</td>
+      <td>To upload the videos you choose, with their title, description, tags and privacy setting.</td></tr>
+    <tr><td>TikTok</td>
+      <td>Basic profile information (open ID, display name, avatar) via <code>user.info.basic</code>; the
+        creator settings TikTok returns before posting (allowed privacy levels, comment/duet/stitch availability);
+        permission to upload and publish videos (<code>video.upload</code>, <code>video.publish</code>).</td>
+      <td>To confirm which account a video will be posted to and to publish the videos you choose with
+        settings TikTok allows.</td></tr>
+    <tr><td>Your computer</td>
+      <td>Video files and captions you create with the app.</td>
+      <td>To produce and upload your clips. These files never leave your computer except when uploaded to your own accounts.</td></tr>
+  </table>
+
+  <h2>4. How we use information</h2>
+  <p>Information is used only to publish videos to the accounts you connected and to show you the result.
+    It is not used for advertising, profiling, analytics or any other purpose, and it is not used to train
+    machine-learning models.</p>
+
+  <h2>5. Storage and security</h2>
   <ul>
-    <li><strong>YouTube (Google):</strong> permission to upload videos to the connected channel
-      (<code>youtube.upload</code> scope). The app does not read your viewing history, subscriptions,
-      comments or other channel data.</li>
-    <li><strong>TikTok:</strong> basic account information (such as display name and avatar) and
-      permission to upload and publish videos to the connected account
-      (<code>user.info.basic</code>, <code>video.upload</code>, <code>video.publish</code>).</li>
+    <li>OAuth access and refresh tokens are stored only in local files on your computer.</li>
+    <li>Clip Uploader has no servers and no database; we never receive or store your tokens or videos.</li>
+    <li>All communication with Google and TikTok uses HTTPS.</li>
   </ul>
 
-  <h2>How the data is used</h2>
-  <p>Access is used only to publish videos that the owner has created and chosen to upload, with
-  their titles, captions and privacy settings. Nothing else is done with it.</p>
+  <h2>6. Sharing</h2>
+  <p>We do not sell, rent, trade or share your information with anyone. Data is sent only to Google (YouTube)
+    and TikTok, and only as needed to publish your videos.</p>
 
-  <h2>Storage and security</h2>
-  <p>Sign-in tokens are stored only on the owner's computer. The app has no servers and no database,
-  and does not send your data to anyone other than Google (YouTube) and TikTok, as required to
-  publish.</p>
+  <h2>7. Cookies</h2>
+  <p>The app does not use cookies. This website is a static page hosted on GitHub Pages and does not set
+    cookies or use analytics; GitHub may process basic request logs as described in its own privacy statement.</p>
 
-  <h2>Sharing</h2>
-  <p>The app does not sell, rent or share personal data with third parties, and does not use it for
-  advertising or analytics.</p>
+  <h2>8. Retention and deletion</h2>
+  <ul>
+    <li>Tokens are kept until you disconnect the account or delete them; disconnecting removes the app's access immediately.</li>
+    <li>Because no data is stored on our side, there is nothing for us to retain. If you contact us with a
+      deletion request, we will confirm within 30 days that no data related to you is held by us.</li>
+    <li>Step-by-step instructions are on the <a href="data-deletion.html">Data Deletion</a> page.</li>
+  </ul>
 
-  <h2>Google API Services</h2>
-  <p>The app's use of information received from Google APIs adheres to the
-  <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User
-  Data Policy</a>, including the Limited Use requirements. YouTube use is also subject to the
-  <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a> and the
-  <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+  <h2 id="revoking">9. Revoking access</h2>
+  <p>You can revoke Clip Uploader's access at any time:</p>
+  <ul>
+    <li><strong>Google / YouTube:</strong> visit the
+      <a href="https://security.google.com/settings/security/permissions">Google security settings page</a>,
+      select Clip Uploader and choose "Remove access".</li>
+    <li><strong>TikTok:</strong> in the TikTok app, go to Settings and privacy → Security & permissions →
+      Apps and services permissions, select Clip Uploader and remove access.</li>
+  </ul>
 
-  <h2>Revoking access</h2>
-  <p>You can remove the app's access at any time: for Google at
-  <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, and for
-  TikTok in the TikTok app under Settings → Security → Manage app permissions. Deleting the local
-  token files also disconnects the app.</p>
+  <h2>10. Children</h2>
+  <p>Clip Uploader is not directed to children under 13 (or the minimum age required in your country) and
+    does not knowingly collect their information.</p>
 
-  <h2>Children</h2>
-  <p>The app is not directed at children and is not used to collect data from them.</p>
+  <h2>11. Your rights</h2>
+  <p>Depending on where you live (for example under the GDPR), you may have rights to access, correct or
+    delete personal data. Because we do not hold your data, these rights are exercised directly by revoking
+    access and deleting local files; you can also contact us for confirmation.</p>
 
-  <h2>Changes</h2>
-  <p>Updates to this policy will be posted on this page with a new date.</p>
+  <h2>12. Changes</h2>
+  <p>We will post any changes to this policy on this page and update the date above. Material changes will
+    be highlighted here before they take effect.</p>
 
-  <h2>Contact</h2>
-  <p><a href="https://github.com/iconalaa/iconalaa.github.io/issues">Open an issue on GitHub</a>.</p>
-
-  <footer><a href="./">Home</a> · <a href="terms.html">Terms of Service</a></footer>
+  <h2>13. Contact</h2>
+  <p>Email <a href="mailto:ala144hrz@gmail.com">ala144hrz@gmail.com</a> or
+    <a href="https://github.com/iconalaa/iconalaa.github.io/issues">open an issue on GitHub</a>.</p>
 </main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Clip Uploader</span>
+    <nav><a href="./">Home</a><a href="terms.html">Terms of Service</a><a href="data-deletion.html">Data Deletion</a></nav>
+  </div>
+</footer>
 </body>
 </html>

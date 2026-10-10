@@ -3,42 +3,114 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Clip Uploader</title>
-  <meta name="description" content="A personal tool that uploads my own edited short videos to my YouTube and TikTok accounts.">
+  <title>Clip Uploader – Turn livestreams into Shorts</title>
+  <meta name="description" content="Clip Uploader finds the best moments in long livestreams, edits them into vertical short videos and publishes them to your own YouTube and TikTok accounts using the official APIs.">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo.svg" alt="">Clip Uploader</a>
+    <nav class="nav">
+      <a href="#how">How it works</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#data">Your data</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
 <main>
-  <header>
-    <div class="logo">CU</div>
-    <a href="./">Clip Uploader</a>
-    <nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
-  </header>
-
-  <h1>Clip Uploader</h1>
-  <p class="muted">A personal publishing tool for short-form videos.</p>
-
-  <div class="card">
-    <p>Clip Uploader is a small private tool that runs on its owner's own computer. It edits short
-    vertical videos and publishes them to the owner's own <strong>YouTube</strong> and
-    <strong>TikTok</strong> accounts, using each platform's official API.</p>
-    <p>It is not a public service: it has no user sign-ups, does not access anyone else's accounts,
-    and does not sell, share or analyse personal data.</p>
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Desktop app · Private beta</span>
+      <h1>Turn long livestreams into ready-to-post short videos.</h1>
+      <p class="lead">Clip Uploader finds the most engaging moments in a stream recording, edits them into
+        vertical clips with captions, and publishes them to <strong>your own</strong> YouTube and TikTok
+        accounts through each platform's official API.</p>
+      <div class="cta">
+        <a class="btn primary" href="#how">See how it works</a>
+        <a class="btn" href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
   </div>
 
-  <h2>What it does</h2>
-  <ul>
-    <li>Uploads finished video files and their captions to the connected account.</li>
-    <li>Reads the minimum account information needed to publish (for example, the account name).</li>
-    <li>Stores sign-in tokens only on the owner's computer.</li>
-  </ul>
+  <section id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="section-lead">Clip Uploader runs on the creator's own computer. Nothing is published to an
+        account until its owner has connected it and chosen the publishing settings.</p>
+      <div class="grid">
+        <div class="card"><div class="step-num">1</div><h3>Connect your accounts</h3>
+          <p>Sign in with Google (YouTube) and TikTok using their official sign-in pages. You see exactly which
+            permissions are requested and can revoke them at any time.</p></div>
+        <div class="card"><div class="step-num">2</div><h3>Find the moments</h3>
+          <p>The app analyses a stream recording (audio energy and speech) to suggest the strongest
+            15–45 second moments.</p></div>
+        <div class="card"><div class="step-num">3</div><h3>Edit automatically</h3>
+          <p>Each moment becomes a 9:16 vertical clip with face-following framing, readable captions and a title.</p></div>
+        <div class="card"><div class="step-num">4</div><h3>Publish on your schedule</h3>
+          <p>Clips are uploaded to your connected accounts with your title, caption, hashtags and the
+            privacy level you choose, a few times per day.</p></div>
+      </div>
+    </div>
+  </section>
 
-  <h2>Contact</h2>
-  <p>Questions: <a href="https://github.com/iconalaa/iconalaa.github.io/issues">open an issue on GitHub</a>.</p>
+  <section id="platforms" class="soft">
+    <div class="wrap">
+      <h2>Supported platforms</h2>
+      <p class="section-lead">Clip Uploader only uses official, documented APIs.</p>
+      <div class="grid">
+        <div class="card"><div class="icon">▶️</div><h3>YouTube</h3>
+          <p>Uploads Shorts with the YouTube Data API v3 (<code>youtube.upload</code> scope only). Clip Uploader
+            uses YouTube API Services; by using it you agree to the
+            <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>.</p></div>
+        <div class="card"><div class="icon">🎵</div><h3>TikTok</h3>
+          <p>Publishes videos with the TikTok Content Posting API after you sign in with Login Kit
+            (<code>user.info.basic</code>, <code>video.upload</code>, <code>video.publish</code>). Your TikTok
+            account name and the privacy options TikTok allows are checked before each post.</p></div>
+      </div>
+    </div>
+  </section>
 
-  <footer>
-    <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a>
-  </footer>
+  <section id="data">
+    <div class="wrap">
+      <h2>Your data, your control</h2>
+      <p class="section-lead">Clip Uploader is built to need as little access as possible.</p>
+      <ul class="check">
+        <li>No servers, no database: sign-in tokens are stored only on your own computer.</li>
+        <li>Only the permissions needed to publish your videos are requested; nothing is read from your inbox, contacts or viewing history.</li>
+        <li>No advertising, no analytics, no selling or sharing of data.</li>
+        <li>Disconnect at any time from your <a href="https://myaccount.google.com/permissions">Google account permissions</a> or TikTok's app permissions; see <a href="data-deletion.html">Data deletion</a>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="soft">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p class="section-lead">Questions about Clip Uploader, privacy or a review request?</p>
+      <p>Email <a href="mailto:ala144hrz@gmail.com">ala144hrz@gmail.com</a> · or
+        <a href="https://github.com/iconalaa/iconalaa.github.io/issues">open an issue on GitHub</a>.</p>
+    </div>
+  </section>
 </main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Clip Uploader</span>
+    <nav>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="data-deletion.html">Data Deletion</a>
+      <a href="mailto:ala144hrz@gmail.com">Contact</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>
