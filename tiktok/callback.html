@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TikTok Sign-in</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+  <header>
+    <div class="logo">CU</div>
+    <a href="../">Clip Uploader</a>
+  </header>
+  <h1>TikTok sign-in</h1>
+  <div class="card"><p id="msg">Finishing sign-in…</p></div>
+</main>
+<script>
+  // TikTok only accepts https redirect addresses, so it returns here. This page
+  // forwards the result to the uploader waiting on the user's own computer.
+  // The local port travels in "state" as "<port>.<random>", and the target is
+  // always 127.0.0.1, so the code can never be sent anywhere else.
+  (function () {
+    var msg = document.getElementById("msg");
+    var params = new URLSearchParams(window.location.search);
+    var state = params.get("state") || "";
+    var port = state.split(".")[0];
+    if (!/^\d{4,5}$/.test(port)) {
+      msg.textContent = "This page is only used to finish connecting a TikTok account to the uploader.";
+      return;
+    }
+    var forward = new URLSearchParams();
+    ["code", "state", "error", "error_description", "scopes"].forEach(function (key) {
+      if (params.has(key)) forward.set(key, params.get(key));
+    });
+    window.location.replace("http://127.0.0.1:" + port + "/callback?" + forward.toString());
+  })();
+</script>
+</body>
+</html>
