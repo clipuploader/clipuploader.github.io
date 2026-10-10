@@ -8,7 +8,7 @@
   <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <header class="site-header">
@@ -66,11 +66,17 @@
       <h2>Supported platforms</h2>
       <p class="section-lead">Clip Uploader only uses official, documented APIs.</p>
       <div class="grid">
-        <div class="card"><div class="icon">▶️</div><h3>YouTube</h3>
+        <div class="card"><h3>YouTube</h3>
           <p>Uploads Shorts with the YouTube Data API v3 (<code>youtube.upload</code> scope only). Clip Uploader
             uses YouTube API Services; by using it you agree to the
-            <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>.</p></div>
-        <div class="card"><div class="icon">🎵</div><h3>TikTok</h3>
+            <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>.</p>
+          <a class="yt-badge" href="https://www.youtube.com/@peakwstream" title="See clips published with Clip Uploader on YouTube">
+            <picture>
+              <source srcset="https://developers.google.com/static/youtube/images/developed-with-youtube-sentence-case-light.png" media="(prefers-color-scheme: dark)">
+              <img src="https://developers.google.com/static/youtube/images/developed-with-youtube-sentence-case-dark.png" alt="Developed with YouTube" height="36">
+            </picture>
+          </a></div>
+        <div class="card"><h3>TikTok</h3>
           <p>Publishes videos with the TikTok Content Posting API after you sign in with Login Kit
             (<code>user.info.basic</code>, <code>video.upload</code>, <code>video.publish</code>). Your TikTok
             account name and the privacy options TikTok allows are checked before each post.</p></div>

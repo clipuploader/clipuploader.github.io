@@ -107,3 +107,7 @@ code { background: var(--bg-soft); border: 1px solid var(--border); border-radiu
   .hero { padding: 48px 0 40px; }
   section { padding: 40px 0; }
 }
+
+/* "Developed with YouTube" badge: official asset, unmodified, kept modest per YouTube branding guidelines */
+.yt-badge { display: inline-block; margin-top: 14px; }
+.yt-badge img { height: 36px; width: auto; display: block; }
