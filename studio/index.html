@@ -56,7 +56,27 @@
     .status.err { border-color: #d93025; }
     .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; background: #fdecea; color: #b3261e; margin-left: 6px; }
     .empty { color: var(--muted); padding: 14px; }
-    @media (max-width: 900px) { .layout, .composer { grid-template-columns: 1fr; } .composer video { max-width: 280px; } }
+    .usage { margin-top: 20px; }
+    .usage-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 16px; }
+    .usage-head h2 { font-size: 22px; margin: 0; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .tile { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+    .tile small { display: block; color: var(--muted); font-size: 13px; }
+    .tile strong { display: block; font-size: 24px; letter-spacing: -0.01em; }
+    .tile span { display: block; color: var(--muted); font-size: 12px; }
+    .chart { display: flex; align-items: flex-end; gap: 6px; height: 150px; padding: 8px 0 22px; border-bottom: 1px solid var(--border);
+      margin-bottom: 18px; position: relative; }
+    .bar { flex: 1; min-width: 0; position: relative; height: 100%; display: flex; align-items: flex-end; }
+    .bar i { display: block; width: 100%; background: var(--accent); border-radius: 4px 4px 0 0; min-height: 2px; opacity: .85; }
+    .bar.today i { opacity: 1; }
+    .bar:hover i { opacity: 1; }
+    .bar b { position: absolute; bottom: -20px; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 400; color: var(--muted); }
+    .usage-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .usage-cols h3 { font-size: 15px; margin: 0 0 6px; }
+    table.mini { width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 16px; }
+    table.mini td { padding: 5px 4px; border-bottom: 1px solid var(--border); }
+    table.mini td.n { text-align: right; font-variant-numeric: tabular-nums; }
+    @media (max-width: 900px) { .layout, .composer, .usage-cols { grid-template-columns: 1fr; } .composer video { max-width: 280px; } }
   </style>
 </head>
 <body>
@@ -151,6 +171,32 @@
         </div>
       </div>
     </div>
+
+    <section class="card usage" id="usage" hidden>
+      <div class="usage-head">
+        <h2>Claude usage</h2>
+        <span class="hint">Tokens used by the automations (clip selection and review). Refreshes every minute.</span>
+      </div>
+      <div class="tiles">
+        <div class="tile"><small>Today</small><strong id="u-today">–</strong><span id="u-today-sub"></span></div>
+        <div class="tile"><small>Last 7 days</small><strong id="u-week">–</strong><span id="u-week-sub"></span></div>
+        <div class="tile"><small>Per clip made (7 days)</small><strong id="u-clip">–</strong><span id="u-clip-sub"></span></div>
+        <div class="tile"><small>API-price equivalent (7 days)</small><strong id="u-cost">–</strong><span>not billed: covered by the subscription</span></div>
+      </div>
+      <div class="chart" id="u-chart" aria-label="Tokens per day, last 14 days"></div>
+      <div class="usage-cols">
+        <div>
+          <h3>By task (7 days)</h3>
+          <table class="mini" id="u-tags"></table>
+          <h3>Token types (7 days)</h3>
+          <table class="mini" id="u-split"></table>
+        </div>
+        <div>
+          <h3>Latest requests</h3>
+          <table class="mini" id="u-recent"></table>
+        </div>
+      </div>
+    </section>
   </div>
 </main>
 
@@ -370,11 +416,57 @@
   }
   function showError(e) { setStatus(e.message || String(e), "err"); }
 
+  // ---- Claude usage ----
+  function fmt(n) {
+    if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M";
+    if (n >= 1e3) return (n / 1e3).toFixed(n >= 1e5 ? 0 : 1) + "k";
+    return String(n);
+  }
+  function rows(table, list) {
+    $(table).innerHTML = list.length ? list.map(function (r) {
+      return "<tr><td>" + esc(r[0]) + '</td><td class="n">' + esc(r[1]) + "</td>" +
+        (r[2] !== undefined ? '<td class="n">' + esc(r[2]) + "</td>" : "") + "</tr>";
+    }).join("") : '<tr><td class="hint">No requests yet.</td></tr>';
+  }
+  function loadUsage() {
+    return api("/api/usage").then(function (u) {
+      $("usage").hidden = false;
+      var t = u.totals;
+      $("u-today").textContent = fmt(t.today.tokens);
+      $("u-today-sub").textContent = t.today.calls + " requests";
+      $("u-week").textContent = fmt(t.week.tokens);
+      $("u-week-sub").textContent = t.week.calls + " requests";
+      var made = u.clips.made || 0;
+      $("u-clip").textContent = made ? fmt(Math.round(t.week.tokens / made)) : "–";
+      $("u-clip-sub").textContent = made + " clips made, " + (u.clips.youtube || 0) + " posted to YouTube";
+      $("u-cost").textContent = "$" + t.week.cost.toFixed(2);
+
+      var max = Math.max.apply(null, u.days.map(function (d) { return d.tokens; }).concat([1]));
+      var today = u.days[u.days.length - 1].day;
+      $("u-chart").innerHTML = u.days.map(function (d) {
+        var label = d.day.slice(8, 10) + "." + d.day.slice(5, 7);
+        return '<div class="bar' + (d.day === today ? " today" : "") + '" title="' + esc(label + ": " + d.tokens.toLocaleString() +
+          " tokens, " + d.calls + " requests") + '"><i style="height:' + (100 * d.tokens / max).toFixed(1) + '%"></i><b>' +
+          esc(d.day.slice(8, 10)) + "</b></div>";
+      }).join("");
+
+      rows("u-tags", Object.keys(u.tags).map(function (k) { return [k, fmt(u.tags[k].tokens), u.tags[k].calls + " req"]; }));
+      var names = { input: "Input", cache_write: "Cache write", cache_read: "Cache read", output: "Output" };
+      rows("u-split", Object.keys(u.split).map(function (k) { return [names[k], fmt(u.split[k])]; }));
+      rows("u-recent", u.recent.map(function (r) {
+        return [r.time.slice(5, 16).replace("T", " ") + " · " + r.tag, fmt(r.tokens),
+          (r.seconds ? Math.round(r.seconds) + " s" : "")];
+      }));
+    }).catch(function () {});
+  }
+
   // ---- start ----
   api("/api/account").then(function () {
     $("app").hidden = false;
     if (location.hash === "#connected") setStatus("TikTok account connected.", "ok");
     history.replaceState(null, "", location.pathname);
+    loadUsage();
+    setInterval(loadUsage, 60000);
     return loadAccount().then(loadClips);
   }).catch(function (e) {
     $("offline").hidden = false;
