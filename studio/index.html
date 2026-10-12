@@ -57,6 +57,11 @@
     .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; background: #fdecea; color: #b3261e; margin-left: 6px; }
     .empty { color: var(--muted); padding: 14px; }
     .usage { margin-top: 20px; }
+    .recs { padding-left: 20px; margin: 0 0 16px; }
+    .recs li { margin: 6px 0; }
+    .recs li small { display: block; color: var(--muted); }
+    .area { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+      color: var(--accent); background: var(--accent-soft); padding: 1px 7px; border-radius: 999px; margin-right: 6px; }
     .usage-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 16px; }
     .usage-head h2 { font-size: 22px; margin: 0; }
     .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
@@ -171,6 +176,22 @@
         </div>
       </div>
     </div>
+
+    <section class="card usage" id="research" hidden>
+      <div class="usage-head">
+        <h2>Trend research</h2>
+        <span class="hint" id="r-date"></span>
+      </div>
+      <p id="r-summary"></p>
+      <h3>What to change</h3>
+      <ol class="recs" id="r-recs"></ol>
+      <div class="usage-cols">
+        <div><h3>Title formulas</h3><ul class="recs" id="r-titles"></ul>
+          <h3>Hashtags</h3><p class="hint" id="r-tags"></p></div>
+        <div><h3>Top clips studied</h3><ul class="recs" id="r-top"></ul>
+          <h3>Profile</h3><ul class="recs" id="r-profile"></ul></div>
+      </div>
+    </section>
 
     <section class="card usage" id="usage" hidden>
       <div class="usage-head">
@@ -460,6 +481,30 @@
     }).catch(function () {});
   }
 
+  // ---- trend research (written nightly by research.py) ----
+  function list(id, items) {
+    $(id).innerHTML = items.length ? items.join("") : '<li class="hint">Nothing yet.</li>';
+  }
+  function loadResearch() {
+    return api("/api/research").then(function (r) {
+      if (!r || !r.date) return;
+      $("research").hidden = false;
+      $("r-date").textContent = "Latest report: " + r.date + " (runs every night at 00:00)";
+      $("r-summary").textContent = r.summary || "";
+      list("r-recs", (r.recommendations || []).slice().sort(function (a, b) { return (a.priority || 9) - (b.priority || 9); })
+        .map(function (x) {
+          return '<li><span class="area">' + esc(x.area) + "</span>" + esc(x.change) + "<small>" + esc(x.why) + "</small></li>";
+        }));
+      list("r-titles", (r.title_formulas || []).map(function (t) { return "<li>" + esc(t) + "</li>"; }));
+      $("r-tags").textContent = (r.hashtags || []).join(" ");
+      list("r-top", (r.top_clips || []).map(function (c) {
+        return '<li><a href="https://youtube.com/shorts/' + encodeURIComponent(c.id) + '" target="_blank" rel="noopener">' +
+          esc(c.title) + "</a><small>" + esc(c.channel) + " · " + Number(c.views || 0).toLocaleString() + " views</small></li>";
+      }));
+      list("r-profile", (r.profile_tips || []).map(function (t) { return "<li>" + esc(t) + "</li>"; }));
+    }).catch(function () {});
+  }
+
   // ---- start ----
   api("/api/account").then(function () {
     $("app").hidden = false;
@@ -467,6 +512,7 @@
     history.replaceState(null, "", location.pathname);
     loadUsage();
     setInterval(loadUsage, 60000);
+    loadResearch();
     return loadAccount().then(loadClips);
   }).catch(function (e) {
     $("offline").hidden = false;
