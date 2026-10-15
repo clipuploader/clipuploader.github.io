@@ -337,8 +337,7 @@
         item(c);
       });
       if (!todo.length) box.insertAdjacentHTML("beforeend", '<div class="empty">All caught up.</div>');
-      heading("Posted on TikTok (" + done.length + ")");
-      done.sort(function (a, b) { return b.posted_at.localeCompare(a.posted_at); }).forEach(item);
+      // Posted clips are not listed (the server leaves them out; their files are removed once done).
     });
   }
 
