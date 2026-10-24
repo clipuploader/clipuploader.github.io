@@ -5,107 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://clipuploader.github.io/">
   <title>Clip Uploader</title>
-  <meta name="description" content="Clip Uploader finds the best moments in long livestreams, edits them into vertical short videos and publishes them to your own YouTube and TikTok accounts using the official APIs.">
+  <meta name="description" content="Clip Uploader turns long livestream recordings into vertical clips and posts them to your own YouTube and TikTok accounts.">
   <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="./"><img src="logo.svg" alt="">Clip Uploader</a>
     <nav class="nav">
-      <a href="#how">How it works</a>
-      <a href="#platforms">Platforms</a>
-      <a href="#data">Your data</a>
+      <a href="studio/">Studio</a>
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
-      <a href="#contact">Contact</a>
+      <a href="mailto:ala144hrz@gmail.com">Contact</a>
     </nav>
   </div>
 </header>
 
-<main>
-  <div class="hero">
-    <div class="wrap">
-      <span class="eyebrow">Desktop app for creators</span>
-      <h1>Turn long livestreams into ready-to-post short videos.</h1>
-      <p class="lead">Clip Uploader finds the most engaging moments in a stream recording, edits them into
-        vertical clips with captions, and publishes them to <strong>your own</strong> YouTube and TikTok
-        accounts through each platform's official API.</p>
-      <div class="cta">
-        <a class="btn primary" href="#how">See how it works</a>
+<main class="wrap">
+  <section class="intro">
+    <div>
+      <h1>Clip Uploader</h1>
+      <p>Turns long livestream recordings into vertical clips, and posts them to your own YouTube and TikTok accounts.</p>
+      <div class="actions">
+        <a class="btn primary" href="studio/">Open Studio</a>
         <a class="btn" href="privacy.html">Privacy Policy</a>
       </div>
     </div>
-  </div>
+    <figure class="frame" aria-label="A wide stream frame with a vertical clip cropped from it">
+      <span class="crop"></span>
+      <figcaption>16:9 stream, 9:16 clip</figcaption>
+    </figure>
+  </section>
 
-  <section id="how">
-    <div class="wrap">
-      <h2>How it works</h2>
-      <p class="section-lead">Clip Uploader runs on the creator's own computer. Nothing is published to an
-        account until its owner has connected it and chosen the publishing settings.</p>
-      <div class="grid">
-        <div class="card"><div class="step-num">1</div><h3>Connect your accounts</h3>
-          <p>Sign in with Google (YouTube) and TikTok using their official sign-in pages. You see exactly which
-            permissions are requested and can revoke them at any time.</p></div>
-        <div class="card"><div class="step-num">2</div><h3>Find the moments</h3>
-          <p>The app analyses a stream recording (audio energy and speech) to suggest the strongest
-            15–45 second moments.</p></div>
-        <div class="card"><div class="step-num">3</div><h3>Edit automatically</h3>
-          <p>Each moment becomes a 9:16 vertical clip with face-following framing, readable captions and a title.</p></div>
-        <div class="card"><div class="step-num">4</div><h3>Review and publish</h3>
-          <p>In the <a href="studio/">Studio</a> you preview each clip, edit its caption, choose who can watch it
-            and the interaction settings, then click Post. Nothing is sent to TikTok before you do.</p></div>
+  <ol class="steps">
+    <li><strong>Find the moments</strong><span>The app reads a recording's audio and speech and suggests its strongest 15–40 second moments.</span></li>
+    <li><strong>Edit the clip</strong><span>Each moment becomes a vertical video with face-following framing and captions.</span></li>
+    <li><strong>Review and post</strong><span>In the Studio you check the clip, caption and privacy, then post it yourself.</span></li>
+  </ol>
+
+  <section class="block">
+    <h2>Platforms</h2>
+    <div class="platforms">
+      <div>
+        <h3>YouTube</h3>
+        <p>Uploads Shorts with the YouTube Data API (<code>youtube.upload</code> only). By using it you agree to the
+          <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>.</p>
+        <a class="yt-badge" href="https://www.youtube.com/@peakwstream" title="Clips published with Clip Uploader">
+          <picture>
+            <source srcset="https://developers.google.com/static/youtube/images/developed-with-youtube-sentence-case-light.png" media="(prefers-color-scheme: dark)">
+            <img src="https://developers.google.com/static/youtube/images/developed-with-youtube-sentence-case-dark.png" alt="Developed with YouTube" height="34">
+          </picture>
+        </a>
+      </div>
+      <div>
+        <h3>TikTok</h3>
+        <p>Signs in with Login Kit and posts with the Content Posting API. Nothing is sent to TikTok until you click Post.</p>
       </div>
     </div>
   </section>
 
-  <section id="platforms" class="soft">
-    <div class="wrap">
-      <h2>Supported platforms</h2>
-      <p class="section-lead">Clip Uploader only uses official, documented APIs.</p>
-      <div class="grid">
-        <div class="card"><h3>YouTube</h3>
-          <p>Uploads Shorts with the YouTube Data API v3 (<code>youtube.upload</code> scope only). Clip Uploader
-            uses YouTube API Services; by using it you agree to the
-            <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>.</p>
-          <a class="yt-badge" href="https://www.youtube.com/@peakwstream" title="See clips published with Clip Uploader on YouTube">
-            <picture>
-              <source srcset="https://developers.google.com/static/youtube/images/developed-with-youtube-sentence-case-light.png" media="(prefers-color-scheme: dark)">
-              <img src="https://developers.google.com/static/youtube/images/developed-with-youtube-sentence-case-dark.png" alt="Developed with YouTube" height="36">
-            </picture>
-          </a></div>
-        <div class="card"><h3>TikTok</h3>
-          <p>Publishes videos with the TikTok Content Posting API after you sign in with Login Kit
-            (<code>user.info.basic</code>, <code>video.publish</code>). The <a href="studio/">Studio</a> shows which
-            TikTok account will receive the post, lets you edit the caption, pick the privacy level and the
-            comment, duet and stitch settings, disclose commercial content, and post only when you click Post.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="data">
-    <div class="wrap">
-      <h2>Your data, your control</h2>
-      <p class="section-lead">Clip Uploader is built to need as little access as possible.</p>
-      <ul class="check">
-        <li>No servers, no database: sign-in tokens are stored only on your own computer.</li>
-        <li>Only the permissions needed to publish your videos are requested; nothing is read from your inbox, contacts or viewing history.</li>
-        <li>No advertising, no analytics, no selling or sharing of data.</li>
-        <li>Disconnect at any time from your <a href="https://myaccount.google.com/permissions">Google account permissions</a> or TikTok's app permissions; see <a href="data-deletion.html">Data deletion</a>.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="contact" class="soft">
-    <div class="wrap">
-      <h2>Contact</h2>
-      <p class="section-lead">Questions about Clip Uploader, privacy or a review request?</p>
-      <p>Email <a href="mailto:ala144hrz@gmail.com">ala144hrz@gmail.com</a> · or
-        <a href="https://github.com/clipuploader/clipuploader.github.io/issues">open an issue on GitHub</a>.</p>
-    </div>
+  <section class="block">
+    <h2>Your data</h2>
+    <p>Sign-ins and videos stay on your computer. There are no servers, ads or analytics. You can disconnect any
+      account at any time; see <a href="data-deletion.html">Data deletion</a>.</p>
   </section>
 </main>
 
@@ -115,8 +80,8 @@
     <nav>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
-      <a href="data-deletion.html">Data Deletion</a>
-      <a href="mailto:ala144hrz@gmail.com">Contact</a>
+      <a href="data-deletion.html">Data deletion</a>
+      <a href="https://github.com/clipuploader/clipuploader.github.io/issues">Support</a>
     </nav>
   </div>
 </footer>

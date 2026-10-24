@@ -7,8 +7,8 @@
   <title>Clip Uploader Studio</title>
   <meta name="robots" content="noindex">
   <link rel="icon" href="../logo.svg" type="image/svg+xml">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=4">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=5">
   <style>
     [hidden] { display: none !important; }
     .studio { padding-top: 32px; padding-bottom: 64px; }
@@ -55,20 +55,19 @@
     .status { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: var(--bg-soft); border: 1px solid var(--border); }
     .status.ok { border-color: var(--ok); }
     .status.err { border-color: #d93025; }
-    .group { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding: 12px 12px 4px; }
+    .group { font-size: 14px; font-weight: 600; color: var(--text); padding: 14px 12px 4px; }
     .day { font-size: 13px; font-weight: 600; padding: 8px 12px 2px; }
     .clip.posted { opacity: .7; }
     .posted-note { background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; font-size: 14px; }
     #mark { margin-left: 8px; }
-    .pick { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: #fff4cc; color: #8a5a00; margin-right: 4px; }
-    .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; background: #fdecea; color: #b3261e; margin-left: 6px; }
+    .pick { display: inline-block; font-size: 12px; font-weight: 600; color: var(--accent); margin-right: 6px; }
+    .badge { display: inline-block; font-size: 12px; color: var(--muted); margin-left: 6px; }
     .empty { color: var(--muted); padding: 14px; }
     .usage { margin-top: 20px; }
     .recs { padding-left: 20px; margin: 0 0 16px; }
     .recs li { margin: 6px 0; }
     .recs li small { display: block; color: var(--muted); }
-    .area { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
-      color: var(--accent); background: var(--accent-soft); padding: 1px 7px; border-radius: 999px; margin-right: 6px; }
+    .area { font-weight: 600; margin-right: 6px; }
     .usage-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 16px; }
     .usage-head h2 { font-size: 22px; margin: 0; }
     .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
@@ -318,7 +317,7 @@
       function item(c) {
         var b = document.createElement("button");
         b.className = "clip" + (current && current.key === c.key ? " active" : "") + (c.posted ? " posted" : "");
-        b.innerHTML = (c.top_pick ? '<span class="pick">⭐ TikTok pick</span> ' : "") + esc(c.title) +
+        b.innerHTML = (c.top_pick ? '<span class="pick">Pick</span> ' : "") + esc(c.title) +
           (c.tiktok_safe ? "" : '<span class="badge">may not reach For You</span>') +
           "<small>" + esc(c.streamer) + (c.virality ? " · score " + esc(c.virality) + "/10" : "") +
           (c.on_youtube ? " · on YouTube" : "") +
@@ -328,7 +327,7 @@
         box.appendChild(b);
       }
       var picks = todo.filter(function (c) { return c.top_pick; });
-      heading("⭐ Post today on TikTok (" + picks.length + ")");
+      heading("Post today on TikTok (" + picks.length + ")");
       if (!picks.length) box.insertAdjacentHTML("beforeend", '<div class="empty">No pick right now: either today’s 2–3 posts are done, or no clip scored 8+.</div>');
       picks.forEach(item);
       todo = todo.filter(function (c) { return !c.top_pick; });
