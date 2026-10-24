@@ -328,7 +328,7 @@
       }
       var picks = todo.filter(function (c) { return c.top_pick; });
       heading("⭐ Post today on TikTok (" + picks.length + ")");
-      if (!picks.length) box.insertAdjacentHTML("beforeend", '<div class="empty">No pick right now: either today's 2–3 posts are done, or no clip scored 8+.</div>');
+      if (!picks.length) box.insertAdjacentHTML("beforeend", '<div class="empty">No pick right now: either today’s 2–3 posts are done, or no clip scored 8+.</div>');
       picks.forEach(item);
       todo = todo.filter(function (c) { return !c.top_pick; });
       heading("Other clips (" + todo.length + ")");
