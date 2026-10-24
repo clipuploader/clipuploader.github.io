@@ -59,6 +59,7 @@
     .clip.posted { opacity: .7; }
     .posted-note { background: var(--accent-soft); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; font-size: 14px; }
     #mark { margin-left: 8px; }
+    .pick { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: #fff4cc; color: #8a5a00; margin-right: 4px; }
     .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; background: #fdecea; color: #b3261e; margin-left: 6px; }
     .empty { color: var(--muted); padding: 14px; }
     .usage { margin-top: 20px; }
@@ -316,7 +317,8 @@
       function item(c) {
         var b = document.createElement("button");
         b.className = "clip" + (current && current.key === c.key ? " active" : "") + (c.posted ? " posted" : "");
-        b.innerHTML = esc(c.title) + (c.tiktok_safe ? "" : '<span class="badge">may not reach For You</span>') +
+        b.innerHTML = (c.top_pick ? '<span class="pick">⭐ TikTok pick</span> ' : "") + esc(c.title) +
+          (c.tiktok_safe ? "" : '<span class="badge">may not reach For You</span>') +
           "<small>" + esc(c.streamer) + (c.virality ? " · score " + esc(c.virality) + "/10" : "") +
           (c.on_youtube ? " · on YouTube" : "") +
           (c.posted ? " · on TikTok " + esc(c.posted_at.slice(5, 16).replace("T", " ")) + (c.manual ? " (by hand)" : "") : "") +
@@ -324,7 +326,12 @@
         b.onclick = function () { select(c); };
         box.appendChild(b);
       }
-      heading("To post on TikTok (" + todo.length + ")");
+      var picks = todo.filter(function (c) { return c.top_pick; });
+      heading("⭐ Post today on TikTok (" + picks.length + ")");
+      if (!picks.length) box.insertAdjacentHTML("beforeend", '<div class="empty">No pick right now: either today's 2–3 posts are done, or no clip scored 8+.</div>');
+      picks.forEach(item);
+      todo = todo.filter(function (c) { return !c.top_pick; });
+      heading("Other clips (" + todo.length + ")");
       todo.forEach(function (c) {
         var d = c.queued_at.slice(0, 10);
         if (d !== day) {
